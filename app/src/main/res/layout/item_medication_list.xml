@@ -19,7 +19,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorWhite"
                 android:id="@+id/tv_dosage"
                 android:gravity="center"
                 android:textSize="34sp"
@@ -44,6 +44,7 @@
                     android:textAllCaps="true"
                     android:ellipsize="end"
                     android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     tools:text="Paracetamol"/>
@@ -88,8 +89,7 @@
                 android:id="@+id/tv_end_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autoLink="phone"
-                android:linksClickable="true"
+                android:textStyle="bold"
                 tools:text="25th May 2018"
                 android:padding="8dp"/>
 
@@ -100,6 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="6 hours daily"
+            android:textColor="@color/colorPrimary"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
             android:textStyle="italic"
             android:layout_marginBottom="4dp"
