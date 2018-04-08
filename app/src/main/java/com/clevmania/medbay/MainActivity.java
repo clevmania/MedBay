@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setupRecyclerView();
+        retrieveMedications();
     }
 
     private void setupRecyclerView(){
@@ -41,11 +42,13 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUtils.getMedicationsReference().addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                MedicationsModel mm = dataSnapshot.getValue(MedicationsModel.class);
-                medicationsModel.add(new MedicationsModel(mm.getName(),mm.getDesc(),mm.getInterval(),
-                        mm.getStart_date(),mm.getEnd_date(),mm.getDosage()));
-                medicationAdapter = new MedicationAdapter(medicationsModel);
-                medicationList.setAdapter(medicationAdapter);
+                if(dataSnapshot != null){
+                    MedicationsModel mm = dataSnapshot.getValue(MedicationsModel.class);
+                    medicationsModel.add(new MedicationsModel(mm.getName(),mm.getDesc(),mm.getInterval(),
+                            mm.getStart_date(),mm.getEnd_date(),mm.getDosage()));
+                    medicationAdapter = new MedicationAdapter(medicationsModel);
+                    medicationList.setAdapter(medicationAdapter);
+                }
             }
 
             @Override
