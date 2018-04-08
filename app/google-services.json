@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "831097235568",
+    "firebase_url": "https://medbay-eba28.firebaseio.com",
+    "project_id": "medbay-eba28",
+    "storage_bucket": "medbay-eba28.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:831097235568:android:c7254340a03bd443",
+        "android_client_info": {
+          "package_name": "com.clevmania.medbay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "831097235568-h3pe9bitfenka5ojnnnjadrrjspv3hqr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clevmania.medbay",
+            "certificate_hash": "08340eb078ec4b273c0f9121112f9215c18909a0"
+          }
+        },
+        {
+          "client_id": "831097235568-r0dotiht4qvp24ouihfqkulepa7pnl2m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3Eee590tIaLa000oVmBLldygbVagbbvo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "831097235568-r0dotiht4qvp24ouihfqkulepa7pnl2m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
