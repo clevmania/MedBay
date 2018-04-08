@@ -11,4 +11,8 @@ public class FirebaseUtils {
     public static DatabaseReference getRootReference(){
         return FirebaseDatabase.getInstance().getReference();
     }
+
+    public static DatabaseReference getMedicationsReference(){
+        return getRootReference().child("medications");
+    }
 }
