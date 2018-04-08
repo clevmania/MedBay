@@ -4,7 +4,7 @@ package com.clevmania.medbay.model;
  * Created by grandilo-lawrence on 4/8/18.
  */
 
-public class Medications {
+public class MedicationsModel {
     private String name;
     private String desc;
     private String interval;
@@ -12,7 +12,7 @@ public class Medications {
     private String end_date;
     private String dosage;
 
-    public Medications(String name, String desc, String interval, String start_date, String end_date, String dosage) {
+    public MedicationsModel(String name, String desc, String interval, String start_date, String end_date, String dosage) {
         this.name = name;
         this.desc = desc;
         this.interval = interval;
@@ -21,7 +21,7 @@ public class Medications {
         this.dosage = dosage;
     }
 
-    public Medications() {
+    public MedicationsModel() {
     }
 
     public String getName() {
