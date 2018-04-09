@@ -1,4 +1,4 @@
-package com.clevmania.medbay;
+package com.clevmania.medbay.app;
 
 import android.app.Application;
 
