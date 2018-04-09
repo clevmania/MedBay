@@ -19,7 +19,7 @@ $ https://github.com/clevmania/MedBay.git
 $ cd MedBay/
 $ ./gradlew build 
 ``` --->
-![Travis-ci](https://travis-ci.org/clevmania/MedBay.svg?branch=master)
+![Travis-ci](https://travis-ci.org/clevmania/MedBay.svg)
 
 ## Developing MedBay ##
 
