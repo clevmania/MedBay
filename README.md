@@ -2,7 +2,7 @@
 MedBay is a simple app that helps patients remember to take their medication 
 and provides tracking for the intake of the prescribed medication intake.
 
-## ALC With Google
+## ALC With Google 2.0
 
 `One does not climb to attain Enlightenment, rather one climbs because he is enlightened`
 
@@ -19,7 +19,7 @@ $ https://github.com/clevmania/MedBay.git
 $ cd MedBay/
 $ ./gradlew build
 ```
-![Travis-ci](https://travis-ci.org/clevmania/MedBay.svg)
+![Travis-ci](https://travis-ci.org/clevmania/MedBay.svg?branch=master)
 
 ## Developing MedBay ##
 
