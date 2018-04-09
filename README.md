@@ -10,14 +10,14 @@ Take a Climb Challenge
 
 Aims to give more experience working on projects and test the skills gained in ALC 2.0
 
-## Build
+<!-- ## Build
 
 To build:
 
 ```bash
 $ https://github.com/clevmania/MedBay.git
 $ cd MedBay/
-$ ./gradlew build
+$ ./gradlew build -->
 ```
 ![Travis-ci](https://travis-ci.org/clevmania/MedBay.svg?branch=master)
 
