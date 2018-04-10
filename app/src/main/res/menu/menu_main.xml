@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/action_add"
-        android:icon="@drawable/ic_add_medic"
+        android:icon="@drawable/ic_add_medics"
         android:title="@string/medication" />
     <item
         android:id="@+id/action_view"
@@ -10,7 +10,7 @@
         android:title="@string/profile"/>
     <item
         android:id="@+id/action_history"
-        android:icon="@drawable/ic_history"
+        android:icon="@drawable/ic_overview"
         android:title="@string/history" />
 
     <item

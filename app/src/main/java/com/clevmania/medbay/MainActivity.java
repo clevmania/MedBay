@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseError;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.yavski.fabspeeddial.FabSpeedDial;
+
 public class MainActivity extends AppCompatActivity {
     private RecyclerView medicationList;
     private MedicationAdapter medicationAdapter;
@@ -28,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
 
         setupRecyclerView();
         retrieveMedications();
+    }
+
+    private void setUpFAB(){
+        FabSpeedDial fabMenu = findViewById(R.id.fabSpeedDial);
     }
 
     private void setupRecyclerView(){
