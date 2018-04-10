@@ -15,6 +15,7 @@ import com.clevmania.medbay.model.MedicationsModel;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if(dataSnapshot != null){
                     MedicationsModel mm = dataSnapshot.getValue(MedicationsModel.class);
-                    medicationsModel.add(new MedicationsModel(mm.getName(),mm.getDesc(),mm.getInterval(),
+                    medicationsModel.add(new MedicationsModel(mm.getTitle(),mm.getDesc(),mm.getInterval(),
                             mm.getStart_date(),mm.getEnd_date(),mm.getDosage()));
                     medicationAdapter = new MedicationAdapter(medicationsModel);
                     medicationList.setAdapter(medicationAdapter);
@@ -132,5 +133,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
     }
 }

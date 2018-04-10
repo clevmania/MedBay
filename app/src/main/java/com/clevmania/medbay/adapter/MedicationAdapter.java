@@ -31,7 +31,7 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
     @Override
     public void onBindViewHolder(MedicationViewHolder holder, int position) {
         MedicationsModel medicModel = medicationsModels.get(position);
-        holder.medicName.setText(medicModel.getName());
+        holder.medicName.setText(medicModel.getTitle());
         holder.medicDescription.setText(medicModel.getDesc());
         holder.medicDosage.setText(medicModel.getDosage());
         holder.medicInterval.setText(medicModel.getInterval());

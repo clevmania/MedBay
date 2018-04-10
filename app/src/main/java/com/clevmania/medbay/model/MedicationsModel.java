@@ -5,17 +5,18 @@ package com.clevmania.medbay.model;
  */
 
 public class MedicationsModel {
-    private String name;
+    private String title;
     private String desc;
     private String interval;
     private String start_date;
     private String end_date;
     private String dosage;
 
-    public MedicationsModel(String name, String desc, String interval, String start_date, String end_date, String dosage) {
-        this.name = name;
+    public MedicationsModel(String title, String desc, String interval, String start_date, String end_date, String dosage) {
+        this.title = title;
         this.desc = desc;
         this.interval = interval;
+
         this.start_date = start_date;
         this.end_date = end_date;
         this.dosage = dosage;
@@ -24,12 +25,12 @@ public class MedicationsModel {
     public MedicationsModel() {
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDesc() {

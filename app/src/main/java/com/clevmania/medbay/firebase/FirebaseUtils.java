@@ -13,6 +13,6 @@ public class FirebaseUtils {
     }
 
     public static DatabaseReference getMedicationsReference(){
-        return getRootReference().child("medications");
+        return getRootReference().child("/medication");
     }
 }
