@@ -17,4 +17,21 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <io.github.yavski.fabspeeddial.FabSpeedDial
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            app:fabGravity="bottom_end"
+            app:fabMenu="@menu/menu_main"
+            app:miniFabBackgroundTint="@android:color/white"
+            app:miniFabDrawableTint="?attr/colorPrimaryDark"
+            app:miniFabTitleTextColor="?attr/colorPrimaryDark" />
+
+    </FrameLayout>
+
 </android.support.constraint.ConstraintLayout>
