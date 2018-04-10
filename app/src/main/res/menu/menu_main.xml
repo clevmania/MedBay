@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/action_call"
-        android:icon="@drawable/ic_call_black_24px"
-        android:title="@string/menu_item_call" />
+        android:id="@+id/action_add"
+        android:icon="@drawable/ic_add_medic"
+        android:title="@string/medication" />
     <item
-        android:id="@+id/action_text"
-        android:icon="@drawable/ic_chat_bubble_outline_black_24px"
-        android:title="@string/menu_item_text"/>
+        android:id="@+id/action_view"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/profile"/>
     <item
-        android:id="@+id/action_email"
-        android:icon="@drawable/ic_mail_outline_black_24px"
-        android:title="@string/menu_item_email" />
+        android:id="@+id/action_history"
+        android:icon="@drawable/ic_history"
+        android:title="@string/history" />
+
+    <item
+        android:id="@+id/action_log_out"
+        android:icon="@drawable/ic_log_out"
+        android:title="@string/logout" />
 </menu>
