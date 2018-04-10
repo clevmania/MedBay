@@ -1,10 +1,13 @@
 package com.clevmania.medbay;
 
 import android.os.Handler;
+import android.support.design.internal.NavigationMenu;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.clevmania.medbay.adapter.MedicationAdapter;
 import com.clevmania.medbay.firebase.FirebaseUtils;
@@ -17,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.github.yavski.fabspeeddial.FabSpeedDial;
+import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView medicationList;
@@ -28,12 +32,50 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setUpFAB();
         setupRecyclerView();
         retrieveMedications();
     }
 
     private void setUpFAB(){
         FabSpeedDial fabMenu = findViewById(R.id.fabSpeedDial);
+        fabMenu.setMenuListener(new SimpleMenuListenerAdapter() {
+            @Override
+            public boolean onMenuItemSelected(MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.action_add:
+                        // do stuff
+                        Toast.makeText(MainActivity.this,
+                                "You clicked"+menuItem.getTitle(),
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_history:
+                        // do stuff
+                        Toast.makeText(MainActivity.this,
+                                "You clicked"+menuItem.getTitle().toString(),
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_log_out:
+                        //do stuff
+                        Toast.makeText(MainActivity.this,
+                                "You clicked"+menuItem.getTitle().toString(),
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_view:
+                        // do stuff
+                        Toast.makeText(MainActivity.this,
+                                "You clicked"+menuItem.getTitle().toString(),
+                                Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareMenu(NavigationMenu navigationMenu) {
+                return true;
+            }
+        });
     }
 
     private void setupRecyclerView(){
