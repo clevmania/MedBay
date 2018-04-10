@@ -47,7 +47,7 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
     public class MedicationViewHolder extends RecyclerView.ViewHolder {
         TextView medicName, medicDescription, medicDosage, medicInterval, startDate, endDate;
 
-        public MedicationViewHolder(View itemView) {
+        private MedicationViewHolder(View itemView) {
             super(itemView);
             medicName = itemView.findViewById(R.id.tv_name_of_medication);
             medicDescription = itemView.findViewById(R.id.tv_description_of_medication);
