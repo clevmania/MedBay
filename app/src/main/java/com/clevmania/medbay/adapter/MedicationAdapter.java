@@ -52,9 +52,9 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
             medicName = itemView.findViewById(R.id.tv_name_of_medication);
             medicDescription = itemView.findViewById(R.id.tv_description_of_medication);
             medicDosage = itemView.findViewById(R.id.tv_dosage);
-            medicInterval = itemView.findViewById(R.id.tv_interval);
-            startDate = itemView.findViewById(R.id.tv_start_date);
-            endDate = itemView.findViewById(R.id.tv_end_date);
+            medicInterval = itemView.findViewById(R.id.et_interval);
+            startDate = itemView.findViewById(R.id.et_start_date);
+            endDate = itemView.findViewById(R.id.et_end_date);
         }
     }
 

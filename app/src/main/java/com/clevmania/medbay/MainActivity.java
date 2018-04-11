@@ -1,5 +1,6 @@
 package com.clevmania.medbay;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.design.internal.NavigationMenu;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.clevmania.medbay.adapter.MedicationAdapter;
 import com.clevmania.medbay.firebase.FirebaseUtils;
 import com.clevmania.medbay.model.MedicationsModel;
+import com.clevmania.medbay.ui.MedicationActivity;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,9 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()){
                     case R.id.action_add:
                         // do stuff
-                        Toast.makeText(MainActivity.this,
-                                "You clicked"+menuItem.getTitle(),
-                                Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, MedicationActivity.class));
                         break;
                     case R.id.action_history:
                         // do stuff

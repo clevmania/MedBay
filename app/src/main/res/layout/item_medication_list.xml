@@ -74,7 +74,7 @@
 
             <TextView
                 android:layout_weight="1"
-                android:id="@+id/tv_start_date"
+                android:id="@+id/et_start_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -86,7 +86,7 @@
 
             <TextView
                 android:layout_weight="1"
-                android:id="@+id/tv_end_date"
+                android:id="@+id/et_end_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -96,7 +96,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tv_interval"
+            android:id="@+id/et_interval"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="6 hours daily"
