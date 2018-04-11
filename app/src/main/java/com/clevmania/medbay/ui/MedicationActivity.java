@@ -1,11 +1,15 @@
 package com.clevmania.medbay.ui;
 
+import android.app.DatePickerDialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -15,9 +19,12 @@ import com.clevmania.medbay.model.MedicationsModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Calendar;
+
 public class MedicationActivity extends AppCompatActivity {
     EditText title, desc, interval, dosage, startDate, endDate;
     Button addMedication;
+    private DatePickerDialog.OnDateSetListener dateSetListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,8 @@ public class MedicationActivity extends AppCompatActivity {
                 saveNewMedication();
             }
         });
+        pickStartDate();
+        pickEndDate();
     }
 
     private void initViews(){
@@ -68,6 +77,52 @@ public class MedicationActivity extends AppCompatActivity {
         dosage.getText().clear();
         startDate.getText().clear();
         endDate.getText().clear();
+    }
+
+    private void pickEndDate(){
+        endDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+
+                DatePickerDialog pickerDialog = new DatePickerDialog(MedicationActivity.this,
+                        android.R.style.Theme_Holo_Dialog_MinWidth,dateSetListener,
+                        cal.get(Calendar.YEAR),cal.get(Calendar.DAY_OF_MONTH),cal.get(Calendar.DAY_OF_MONTH));
+                pickerDialog.setTitle("Medication End DATE");
+                pickerDialog.show();
+
+                dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int yr, int m, int d) {
+                        endDate.setText(String.format("%d/%d/%d",yr,m,d));
+                    }
+                };
+
+            }
+        });
+    }
+
+    private void pickStartDate(){
+        startDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar cal = Calendar.getInstance();
+
+                DatePickerDialog pickerDialog = new DatePickerDialog(MedicationActivity.this,
+                        android.R.style.Theme_Holo_Dialog_MinWidth,dateSetListener,
+                        cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
+                pickerDialog.setTitle("Medication Start DATE");
+                pickerDialog.show();
+
+                dateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int yr, int m, int d) {
+                        startDate.setText(String.format("%d/%d/%d",yr,m,d));
+                    }
+                };
+
+            }
+        });
     }
 
 }
