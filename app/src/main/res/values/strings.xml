@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MedBay</string>
+
+    // Menu item labels
+    <string name="medication">Add Medication</string>
+    <string name="profile">Profile</string>
+    <string name="history">Overview</string>
+    <string name="logout">Sign out</string>
+    <string name="title_activity_medication">Add Medication</string>
 </resources>

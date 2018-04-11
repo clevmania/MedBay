@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_add"
+        android:icon="@drawable/ic_add_medics"
+        android:title="@string/medication" />
+    <item
+        android:id="@+id/action_view"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/profile"/>
+    <item
+        android:id="@+id/action_history"
+        android:icon="@drawable/ic_overview"
+        android:title="@string/history" />
+
+    <item
+        android:id="@+id/action_log_out"
+        android:icon="@drawable/ic_log_out"
+        android:title="@string/logout" />
+</menu>
