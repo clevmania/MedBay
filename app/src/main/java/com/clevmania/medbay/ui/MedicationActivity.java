@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -24,7 +25,7 @@ import java.util.Calendar;
 public class MedicationActivity extends AppCompatActivity {
     EditText title, desc, interval, dosage, startDate, endDate;
     Button addMedication;
-    private DatePickerDialog.OnDateSetListener dateSetListener;
+    private DatePickerDialog.OnDateSetListener startDateListener,endDateListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,20 +87,21 @@ public class MedicationActivity extends AppCompatActivity {
                 Calendar cal = Calendar.getInstance();
 
                 DatePickerDialog pickerDialog = new DatePickerDialog(MedicationActivity.this,
-                        android.R.style.Theme_Holo_Dialog_MinWidth,dateSetListener,
-                        cal.get(Calendar.YEAR),cal.get(Calendar.DAY_OF_MONTH),cal.get(Calendar.DAY_OF_MONTH));
+                        android.R.style.Theme_Holo_Dialog_MinWidth,endDateListener,
+                        cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
+                pickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 pickerDialog.setTitle("Medication End DATE");
                 pickerDialog.show();
-
-                dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int yr, int m, int d) {
-                        endDate.setText(String.format("%d/%d/%d",yr,m,d));
-                    }
-                };
+                pickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
             }
         });
+        endDateListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int yr, int m, int d) {
+                endDate.setText(String.format("%d/%d/%d",yr,++m,d));
+            }
+        };
     }
 
     private void pickStartDate(){
@@ -109,20 +111,22 @@ public class MedicationActivity extends AppCompatActivity {
                 Calendar cal = Calendar.getInstance();
 
                 DatePickerDialog pickerDialog = new DatePickerDialog(MedicationActivity.this,
-                        android.R.style.Theme_Holo_Dialog_MinWidth,dateSetListener,
+                        android.R.style.Theme_Holo_Dialog_MinWidth,startDateListener,
                         cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
+//                Log.i(MedicationActivity.class.getSimpleName(),String.valueOf(System.currentTimeMillis() - 1000));
+                pickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
                 pickerDialog.setTitle("Medication Start DATE");
                 pickerDialog.show();
-
-                dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker datePicker, int yr, int m, int d) {
-                        startDate.setText(String.format("%d/%d/%d",yr,m,d));
-                    }
-                };
+                pickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
             }
         });
+        startDateListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int yr, int m, int d) {
+                startDate.setText(String.format("%d/%d/%d",yr,++m,d));
+            }
+        };
     }
 
 }
