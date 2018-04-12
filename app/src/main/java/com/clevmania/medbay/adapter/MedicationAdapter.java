@@ -9,7 +9,12 @@ import android.widget.TextView;
 import com.clevmania.medbay.R;
 import com.clevmania.medbay.model.MedicationsModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by grandilo-lawrence on 4/8/18.
@@ -37,6 +42,7 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
         holder.medicInterval.setText(medicModel.getInterval());
         holder.startDate.setText(medicModel.getStart_date());
         holder.endDate.setText(medicModel.getEnd_date());
+        holder.duration.setText(durationOfMedication(medicModel.getEnd_date()));
     }
 
     @Override
@@ -45,7 +51,7 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
     }
 
     public class MedicationViewHolder extends RecyclerView.ViewHolder {
-        TextView medicName, medicDescription, medicDosage, medicInterval, startDate, endDate;
+        TextView medicName, medicDescription, medicDosage, medicInterval, startDate, endDate, duration;
 
         private MedicationViewHolder(View itemView) {
             super(itemView);
@@ -55,7 +61,25 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
             medicInterval = itemView.findViewById(R.id.et_interval);
             startDate = itemView.findViewById(R.id.et_start_date);
             endDate = itemView.findViewById(R.id.et_end_date);
+            duration = itemView.findViewById(R.id.tv_duration);
         }
+    }
+
+    private String durationOfMedication(String date){
+//        String strThatDay = "1985/08/25";
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        Date d = null;
+        try {
+            d=formatter.parse((date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        Calendar endDate = Calendar.getInstance();
+        endDate.setTime(d);
+
+        long timeLeft = Calendar.getInstance().getTimeInMillis() - endDate.getTimeInMillis();
+        long days = TimeUnit.MILLISECONDS.toDays(timeLeft);
+        return String.valueOf(days);
     }
 
 }
