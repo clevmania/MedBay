@@ -39,7 +39,7 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
         MedicationsModel medicModel = medicationsModels.get(position);
         holder.medicName.setText(medicModel.getTitle());
         holder.medicDescription.setText(medicModel.getDesc());
-        holder.medicDosage.setText(medicModel.getDosage());
+        holder.medicDosage.setText(String.format("%s times daily",medicModel.getDosage()));
         holder.medicInterval.setText(medicModel.getInterval());
         holder.startDate.setText(medicModel.getStart_date());
         holder.endDate.setText(medicModel.getEnd_date());
@@ -76,8 +76,11 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
             currentDate = formatter.parse(formatter.format(System.currentTimeMillis()));
             long daysInMills = Math.abs(finishDate.getTime() - currentDate.getTime());
             long days = TimeUnit.MILLISECONDS.toDays(daysInMills);
-            noOfDays = String.valueOf(days);
+            noOfDays = String.format("%s \n days left",String.valueOf(days));
 
+            if(finishDate.after(currentDate)){
+                noOfDays = "done";
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
