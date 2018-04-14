@@ -22,7 +22,7 @@
                 android:textColor="@color/colorWhite"
                 android:id="@+id/tv_duration"
                 android:gravity="center"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 tools:text="47 \n days left"
                 android:padding="8dp"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"

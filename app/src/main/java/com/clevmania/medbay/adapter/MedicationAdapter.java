@@ -78,8 +78,8 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
             long days = TimeUnit.MILLISECONDS.toDays(daysInMills);
             noOfDays = String.format("%s \n days left",String.valueOf(days));
 
-            if(finishDate.after(currentDate)){
-                noOfDays = "done";
+            if(currentDate.after(finishDate)){
+                noOfDays = "\u2714";
             }
         } catch (ParseException e) {
             e.printStackTrace();
