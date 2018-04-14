@@ -99,7 +99,7 @@ public class MedicationActivity extends AppCompatActivity {
         endDateListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int yr, int m, int d) {
-                endDate.setText(String.format("%d/%d/%d",yr,++m,d));
+                endDate.setText(String.format("%d/%d/%d",d,++m,yr));
             }
         };
     }
@@ -124,7 +124,7 @@ public class MedicationActivity extends AppCompatActivity {
         startDateListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int yr, int m, int d) {
-                startDate.setText(String.format("%d/%d/%d",yr,++m,d));
+                startDate.setText(String.format("%d/%d/%d",d,++m,yr));
             }
         };
     }

@@ -74,7 +74,7 @@
 
             <TextView
                 android:layout_weight="1"
-                android:id="@+id/et_dosage"
+                android:id="@+id/tv_dosage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"

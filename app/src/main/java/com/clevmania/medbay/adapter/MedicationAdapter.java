@@ -1,6 +1,7 @@
 package com.clevmania.medbay.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,20 +67,22 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
     }
 
     private String durationOfMedication(String date){
-//        String strThatDay = "1985/08/25";
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-        Date d = null;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date finishDate , currentDate;
+        String noOfDays = "";
+
         try {
-            d=formatter.parse((date));
+            finishDate=formatter.parse(date);
+            currentDate = formatter.parse(formatter.format(System.currentTimeMillis()));
+            long daysInMills = Math.abs(finishDate.getTime() - currentDate.getTime());
+            long days = TimeUnit.MILLISECONDS.toDays(daysInMills);
+            noOfDays = String.valueOf(days);
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Calendar endDate = Calendar.getInstance();
-        endDate.setTime(d);
-
-        long timeLeft = Calendar.getInstance().getTimeInMillis() - endDate.getTimeInMillis();
-        long days = TimeUnit.MILLISECONDS.toDays(timeLeft);
-        return String.valueOf(days);
+        return noOfDays;
     }
+
 
 }
