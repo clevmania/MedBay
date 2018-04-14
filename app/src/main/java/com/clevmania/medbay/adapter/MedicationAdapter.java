@@ -39,7 +39,7 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
         MedicationsModel medicModel = medicationsModels.get(position);
         holder.medicName.setText(medicModel.getTitle());
         holder.medicDescription.setText(medicModel.getDesc());
-        holder.medicDosage.setText(String.format("%s times daily",medicModel.getDosage()));
+        holder.medicDosage.setText(String.format("%s daily",medicModel.getDosage()));
         holder.medicInterval.setText(medicModel.getInterval());
         holder.startDate.setText(medicModel.getStart_date());
         holder.endDate.setText(medicModel.getEnd_date());
