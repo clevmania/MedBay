@@ -6,18 +6,19 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.clevmania.medbay.ui.MedicationActivity"
+    tools:layout_editor_absoluteY="81dp"
     tools:showIn="@layout/activity_medication">
 
     <EditText
         android:id="@+id/et_med_title"
-        android:layout_width="0dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="Name"
-        android:inputType="textPersonName"
+        android:hint="Name of medication"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,12 +27,11 @@
         android:id="@+id/et_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Description"
-        android:inputType="textPersonName"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/et_med_title"
         app:layout_constraintTop_toBottomOf="@+id/et_med_title" />
@@ -45,16 +45,14 @@
         android:hint="Interval"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="@+id/et_description"
-        app:layout_constraintTop_toBottomOf="@+id/et_description" />
+        app:layout_constraintTop_toBottomOf="@+id/cb_dawn" />
 
     <EditText
         android:id="@+id/et_dosage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="32dp"
         android:ems="10"
         android:hint="Dosage"
         android:inputType="textPersonName"
@@ -66,13 +64,12 @@
         android:id="@+id/et_start_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="start date"
         android:focusable="false"
         android:focusableInTouchMode="false"
+        android:hint="start date"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/et_interval"
@@ -82,14 +79,13 @@
         android:id="@+id/et_end_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="end date"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:inputType="none"
+        android:hint="end date"
+        android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/et_start_date"
         app:layout_constraintTop_toBottomOf="@+id/et_start_date" />
@@ -100,9 +96,59 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:text="Add Medication"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_end_date" />
+
+    <CheckBox
+        android:id="@+id/cb_dawn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="morning"
+        app:layout_constraintEnd_toStartOf="@+id/cb_noon"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_Interval" />
+
+    <CheckBox
+        android:id="@+id/cb_noon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="after noon"
+        app:layout_constraintBaseline_toBaselineOf="@+id/cb_dawn"
+        app:layout_constraintEnd_toStartOf="@+id/cb_dusk"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cb_dawn" />
+
+    <CheckBox
+        android:id="@+id/cb_dusk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:text="evening"
+        app:layout_constraintBaseline_toBaselineOf="@+id/cb_noon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cb_noon" />
+
+    <TextView
+        android:id="@+id/tv_Interval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:text="Interval"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_description" />
+
 </android.support.constraint.ConstraintLayout>

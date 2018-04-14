@@ -58,7 +58,6 @@
                     android:layout_marginTop="2dp"
                     android:padding="3dp"
                     android:maxLines="3"
-                    android:maxLength="100"
                     android:ellipsize="end"
                     android:textSize="12sp"
                     tools:text="For the quick relief of headaches, body pains, fatigue, stress"/>
