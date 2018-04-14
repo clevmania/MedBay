@@ -153,7 +153,7 @@
                 android:id="@+id/et_interval"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                tools:text="6 hours daily"
+                tools:text="3 capsules, twice daily"
                 android:textColor="@color/colorPrimary"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
                 android:textStyle="italic"
