@@ -1,13 +1,10 @@
 package com.clevmania.medbay.ui;
 
 import android.app.DatePickerDialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -23,8 +20,8 @@ import com.google.android.gms.tasks.Task;
 import java.util.Calendar;
 
 public class MedicationActivity extends AppCompatActivity {
-    EditText title, desc, interval, dosage, startDate, endDate;
-    Button addMedication;
+    private EditText title, desc, interval, dosage, startDate, endDate;
+    private Button addMedication;
     private DatePickerDialog.OnDateSetListener startDateListener,endDateListener;
 
     @Override

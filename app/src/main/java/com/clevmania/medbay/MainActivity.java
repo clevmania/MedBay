@@ -1,13 +1,20 @@
 package com.clevmania.medbay;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.design.internal.NavigationMenu;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.clevmania.medbay.adapter.MedicationAdapter;
@@ -29,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView medicationList;
     private MedicationAdapter medicationAdapter;
     private List<MedicationsModel> medicationsModel;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,5 +142,60 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search,menu);
+        final MenuItem item = menu.findItem(R.id.action_search);
+        searchView = (SearchView) item.getActionView();
+        changeSearchViewColor(searchView);
+        ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text))
+                .setHintTextColor(getResources().getColor(android.R.color.white));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                if(!searchView.isIconfiedByDefault()){
+                    searchView.setIconified(true);
+                    item.collapseActionView();
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                List<MedicationsModel> filteredResult = filterList(medicationsModel,newText);
+                medicationAdapter.setFilter(filteredResult);
+                return false;
+            }
+        });
+        return true;
+    }
+
+    private List<MedicationsModel> filterList (List<MedicationsModel> mm, String query){
+        query = query.toLowerCase();
+        final List<MedicationsModel> filteredModelList = new ArrayList<>();
+        for(MedicationsModel selectedMedications : mm){
+            String name = selectedMedications.getTitle().toLowerCase();
+            if(name.contains(query)){
+                filteredModelList.add(selectedMedications);
+            }
+        }
+
+        return filteredModelList;
+    }
+
+    private void changeSearchViewColor(View view){
+        if(view != null){
+            if (view instanceof TextView){
+                ((TextView)view).setTextColor(Color.WHITE);
+                return;
+            }else if(view instanceof ViewGroup){
+                ViewGroup viewGroup = (ViewGroup) view;
+                for(int i = 0; i<viewGroup.getChildCount();i++){
+                    changeSearchViewColor(viewGroup.getChildAt(i));
+                }
+            }
+        }
     }
 }
