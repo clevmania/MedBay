@@ -12,6 +12,7 @@ import com.clevmania.medbay.model.MedicationsModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -87,5 +88,9 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
         return noOfDays;
     }
 
-
+    public void setFilter(List<MedicationsModel> medList){
+        medicationsModels = new ArrayList<>();
+        medicationsModels.addAll(medList);
+        notifyDataSetChanged();
+    }
 }
