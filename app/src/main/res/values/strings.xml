@@ -8,4 +8,5 @@
     <string name="logout">Sign out</string>
     <string name="title_activity_medication">Add Medication</string>
     <string name="action_search">search</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
 </resources>
