@@ -9,4 +9,7 @@
     <string name="title_activity_medication">Add Medication</string>
     <string name="action_search">search</string>
     <string name="title_activity_sign_in">SignInActivity</string>
+
+    //Login labels
+    <string name="login_header">Keep track of your medication</string>
 </resources>
