@@ -12,4 +12,5 @@
 
     //Login labels
     <string name="login_header">Keep track of your medication</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
 </resources>
