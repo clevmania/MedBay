@@ -20,4 +20,12 @@ public class FirebaseUtils {
     public static FirebaseAuth getAuthenticationReference() {
         return FirebaseAuth.getInstance();
     }
+
+    public static DatabaseReference getMedicReference(String uid, String month){
+        return getRootReference().child("/medication/users/"+uid+"/"+month);
+    }
+
+    public static DatabaseReference getProfileReference(String uid){
+        return getRootReference().child("/medication/users/"+uid+"/profile");
+    }
 }
