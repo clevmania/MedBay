@@ -7,7 +7,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -62,6 +64,8 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void createUserAccount(){
+        if(!validateEmail()) return;
+        if(!validatePassword()) return;
         authIndicator.setVisibility(View.VISIBLE);
         FirebaseUtils.getAuthenticationReference().createUserWithEmailAndPassword(newUserMail.getText().toString(),
                 newUserPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -98,6 +102,50 @@ public class SignUpActivity extends AppCompatActivity {
         FirebaseUtils.getProfileReference(userDetails.getUid())
                 .setValue(new ProfileModel(userDetails.getDisplayName(),userDetails.getEmail(),
                         userDetails.getPhotoUrl().toString(),userDetails.getPhoneNumber()));
+    }
+
+    private boolean validateEmail() {
+        String mail = newUserMail.getText().toString().trim();
+
+        if(mail.isEmpty()){
+            newUserMail.setError(getString(R.string.err_msg_email));
+            requestFocus(newUserMail);
+            return false;
+        }
+        if(!mail.isEmpty()){
+            if (!isValidEmail(mail)) {
+                newUserMail.setError(getString(R.string.err_msg_invalid_email));
+                requestFocus(newUserMail);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean validatePassword() {
+        if (newUserPassword.getText().toString().trim().isEmpty()) {
+            newUserPassword.setError(getString(R.string.err_msg_password));
+            requestFocus(newUserPassword);
+            return false;
+        } else {
+            if (newUserPassword.getText().toString().length() < 7) {
+                newUserPassword.setError(getString(R.string.err_min_password_length));
+                requestFocus(newUserPassword);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static boolean isValidEmail(String email) {
+        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
     }
 
 }
