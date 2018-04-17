@@ -42,9 +42,9 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class SignInActivity extends AppCompatActivity {
     private EditText email,password;
-    private Button signUp, signIn, googleSignIn;
+    private Button signIn, googleSignIn;
     private ProgressBar authIndicator;
-    private TextView forgotPassword;
+    private TextView forgotPassword, signUp;
     private GoogleSignInOptions gso;
     private GoogleApiClient googleApiClient;
     private static final int RC_SIGN_IN = 1;
@@ -154,6 +154,7 @@ public class SignInActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+                            saveUserInSharedPreference(FirebaseUtils.getAuthenticationReference().getCurrentUser());
                             authIndicator.setVisibility(View.GONE);
                             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
@@ -325,6 +326,8 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void updateUserProfile(FirebaseUser userDetails){
+        new ProfileManager(this).setUid(userDetails.getUid());
+
         // Save user profile via sharedPreference
         new ProfileManager(this).setUserDetails(userDetails.getDisplayName(),
                 userDetails.getEmail(),userDetails.getPhoneNumber(),userDetails.getPhotoUrl().toString());
@@ -333,6 +336,15 @@ public class SignInActivity extends AppCompatActivity {
         FirebaseUtils.getProfileReference(userDetails.getUid())
                 .setValue(new ProfileModel(userDetails.getDisplayName(),userDetails.getEmail(),
                         userDetails.getPhotoUrl().toString(),userDetails.getPhoneNumber()));
+    }
+
+    private void saveUserInSharedPreference(FirebaseUser userDetails){
+        // saved logged user's uid
+        new ProfileManager(this).setUid(userDetails.getUid());
+
+        // Save logged user in sharedPreference
+        new ProfileManager(this).setUserDetails(userDetails.getDisplayName(),
+                userDetails.getEmail(),userDetails.getPhoneNumber(),userDetails.getPhotoUrl().toString());
     }
 
 

@@ -26,6 +26,14 @@ public class ProfileManager {
         editor.commit();
     }
 
+    public void setUid(String uid){
+        editor.putString("uid",uid);
+    }
+
+    public String getUid(){
+        return preferences.getString("uid",null);
+    }
+
     public String getUserName(){
         return preferences.getString("userName",null);
     }
