@@ -292,7 +292,7 @@ public class SignInActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
 //                            Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = FirebaseUtils.getAuthenticationReference().getCurrentUser();
-//                            updateUserProfile(user);
+                            updateUserProfile(user);
                             startActivity(new Intent(SignInActivity.this,MainActivity.class));
                             finish();
                         } else {
@@ -321,6 +321,11 @@ public class SignInActivity extends AppCompatActivity {
         logOutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(logOutIntent);
 
+    }
+
+    private void updateUserProfile(FirebaseUser userDetails){
+        // Add details to sharedPreferences
+//        FirebaseUtils.getProfileReference(userDetails.getUid()).setValue()
     }
 
 
