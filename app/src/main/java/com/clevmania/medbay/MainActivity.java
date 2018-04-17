@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.action_log_out:
                         FirebaseUtils.getAuthenticationReference().signOut();
+                        new ProfileManager(MainActivity.this).wipeUserDetails();
 
                         Intent logOutIntent = new Intent(MainActivity.this, SignInActivity.class);
                         logOutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -145,53 +146,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-        /*FirebaseUtils.getMedicationsReference().addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if(dataSnapshot != null){
-                    MedicationsModel mm = dataSnapshot.getValue(MedicationsModel.class);
-                    medicationsModel.add(new MedicationsModel(mm.getTitle(),mm.getDesc(),mm.getInterval(),
-                            mm.getStart_date(),mm.getEnd_date(),mm.getDosage()));
-                    medicationAdapter = new MedicationAdapter(medicationsModel);
-                    medicationList.setAdapter(medicationAdapter);
-                }
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                MedicationsModel medication = dataSnapshot.getValue(MedicationsModel.class);
-                if (medication != null) {
-                    int indexOfTopic = medicationsModel.indexOf(medication);
-                    if (indexOfTopic != -1) {
-                        medicationsModel.remove(medication);
-                        medicationAdapter.notifyItemRemoved(indexOfTopic);
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                medicationAdapter.notifyDataSetChanged();
-                            }
-                        }, 500);
-                    }
-                }
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
 
     }
 

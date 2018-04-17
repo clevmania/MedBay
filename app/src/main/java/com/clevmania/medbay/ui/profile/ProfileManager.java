@@ -34,6 +34,14 @@ public class ProfileManager {
         editor.commit();
     }
 
+    public void wipeUserDetails(){
+        editor.putString("userName", null);
+        editor.putString("userMail",null);
+        editor.putString("userMobile", null);
+        editor.putString("userImg",null);
+        editor.commit();
+    }
+
     public void setUid(String uid){
         editor.putString("uid",uid);
     }
