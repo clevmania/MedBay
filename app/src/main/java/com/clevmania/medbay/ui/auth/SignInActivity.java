@@ -23,6 +23,7 @@ import com.clevmania.medbay.MainActivity;
 import com.clevmania.medbay.R;
 import com.clevmania.medbay.firebase.FirebaseUtils;
 import com.clevmania.medbay.model.ProfileModel;
+import com.clevmania.medbay.ui.profile.ProfileManager;
 import com.clevmania.medbay.utils.UiUtils;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -324,7 +325,11 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void updateUserProfile(FirebaseUser userDetails){
-        // Add details to sharedPreferences by creating a profile manager
+        // Save user profile via sharedPreference
+        new ProfileManager(this).setUserDetails(userDetails.getDisplayName(),
+                userDetails.getEmail(),userDetails.getPhoneNumber(),userDetails.getPhotoUrl().toString());
+
+        // Save user details to firebase database
         FirebaseUtils.getProfileReference(userDetails.getUid())
                 .setValue(new ProfileModel(userDetails.getDisplayName(),userDetails.getEmail(),
                         userDetails.getPhotoUrl().toString(),userDetails.getPhoneNumber()));
