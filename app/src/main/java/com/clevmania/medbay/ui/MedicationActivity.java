@@ -14,10 +14,14 @@ import android.widget.Toast;
 import com.clevmania.medbay.R;
 import com.clevmania.medbay.firebase.FirebaseUtils;
 import com.clevmania.medbay.model.MedicationsModel;
+import com.clevmania.medbay.ui.profile.ProfileManager;
+import com.clevmania.medbay.utils.UiUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class MedicationActivity extends AppCompatActivity {
     private EditText title, desc, interval, dosage, startDate, endDate;
@@ -58,14 +62,17 @@ public class MedicationActivity extends AppCompatActivity {
                 desc.getText().toString(),interval.getText().toString(),
                 startDate.getText().toString(),endDate.getText().toString(),
                 dosage.getText().toString());
-        FirebaseUtils.getMedicationsReference().push().setValue(model)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(MedicationActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                        clear();
-                    }
-                });
+
+        FirebaseUtils.getMedicReference(new ProfileManager(MedicationActivity.this)
+                .getUid(),getMonth()).push().setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                UiUtils.showLongSnackBar(addMedication,
+                        String.format("%s, has been successfully added",title.getText().toString()));
+                clear();
+            }
+        });
+
     }
 
     private void clear(){
@@ -124,6 +131,11 @@ public class MedicationActivity extends AppCompatActivity {
                 startDate.setText(String.format("%d/%d/%d",d,++m,yr));
             }
         };
+    }
+
+    private String getMonth(){
+        Calendar cal = Calendar.getInstance();
+        return new SimpleDateFormat("MMMM", Locale.getDefault()).format(cal.getTime());
     }
 
 }
