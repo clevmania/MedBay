@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +22,7 @@ import android.widget.TextView;
 import com.clevmania.medbay.MainActivity;
 import com.clevmania.medbay.R;
 import com.clevmania.medbay.firebase.FirebaseUtils;
+import com.clevmania.medbay.model.ProfileModel;
 import com.clevmania.medbay.utils.UiUtils;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -93,7 +93,7 @@ public class SignInActivity extends AppCompatActivity {
         email = findViewById(R.id.et_email);
         password = findViewById(R.id.et_password);
         signIn = findViewById(R.id.btn_login);
-        signUp = findViewById(R.id.btn_sign_up);
+        signUp = findViewById(R.id.tv_sign_up);
         forgotPassword = findViewById(R.id.tv_forgot_password);
         authIndicator = findViewById(R.id.pb_indicator);
         googleSignIn = findViewById(R.id.btn_google_sign_in);
@@ -324,8 +324,10 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void updateUserProfile(FirebaseUser userDetails){
-        // Add details to sharedPreferences
-//        FirebaseUtils.getProfileReference(userDetails.getUid()).setValue()
+        // Add details to sharedPreferences by creating a profile manager
+        FirebaseUtils.getProfileReference(userDetails.getUid())
+                .setValue(new ProfileModel(userDetails.getDisplayName(),userDetails.getEmail(),
+                        userDetails.getPhotoUrl().toString(),userDetails.getPhoneNumber()));
     }
 
 

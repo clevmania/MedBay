@@ -8,16 +8,24 @@ public class ProfileModel {
     String fullname;
     String email;
     String photo;
-    String username;
+    String mobile;
 
     public ProfileModel() {
     }
 
-    public ProfileModel(String fullname, String email, String photo, String username) {
+    public ProfileModel(String fullname, String email, String photo, String mobile) {
         this.fullname = fullname;
         this.email = email;
         this.photo = photo;
-        this.username = username;
+        this.mobile = mobile;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getFullname() {
@@ -44,11 +52,4 @@ public class ProfileModel {
         this.photo = photo;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }
