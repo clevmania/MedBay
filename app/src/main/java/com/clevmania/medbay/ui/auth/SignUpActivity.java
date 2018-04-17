@@ -3,6 +3,7 @@ package com.clevmania.medbay.ui.auth;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -91,17 +92,28 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void updateUserProfile(FirebaseUser userDetails){
-        // save user Uid
         new ProfileManager(this).setUid(userDetails.getUid());
 
-        // Save user profile via sharedPreference
-        new ProfileManager(this).setUserDetails(userDetails.getDisplayName(),
-                userDetails.getEmail(),userDetails.getPhoneNumber(),userDetails.getPhotoUrl().toString());
+        if(userDetails.getPhotoUrl() != null){
+            // Save user profile via sharedPreference
+            new ProfileManager(this).setUserDetails(userDetails.getDisplayName(),
+                    userDetails.getEmail(),userDetails.getPhoneNumber(),userDetails.getPhotoUrl().toString());
 
-        // Save user details to firebase database
-        FirebaseUtils.getProfileReference(userDetails.getUid())
-                .setValue(new ProfileModel(userDetails.getDisplayName(),userDetails.getEmail(),
-                        userDetails.getPhotoUrl().toString(),userDetails.getPhoneNumber()));
+            // Save user details to firebase database
+            FirebaseUtils.getProfileReference(userDetails.getUid())
+                    .setValue(new ProfileModel(userDetails.getDisplayName(),userDetails.getEmail(),
+                            userDetails.getPhotoUrl().toString(),userDetails.getPhoneNumber()));
+        }else{
+            // Save user profile via sharedPreference
+            new ProfileManager(this).setUserDetails(userDetails.getDisplayName(),
+                    userDetails.getEmail(),userDetails.getPhoneNumber());
+
+            // Save user details to firebase database
+            FirebaseUtils.getProfileReference(userDetails.getUid())
+                    .setValue(new ProfileModel(userDetails.getDisplayName(),userDetails.getEmail(),
+                            "null",userDetails.getPhoneNumber()));
+        }
+
     }
 
     private boolean validateEmail() {

@@ -69,7 +69,7 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
 
     private String durationOfMedication(String date){
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        Date finishDate , currentDate;
+        Date finishDate = null , currentDate = null;
         String noOfDays = "";
 
         try {

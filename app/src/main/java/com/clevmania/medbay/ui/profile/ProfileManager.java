@@ -2,6 +2,7 @@ package com.clevmania.medbay.ui.profile;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 
 /**
  * Created by grandilo-lawrence on 4/17/18.
@@ -23,6 +24,13 @@ public class ProfileManager {
         editor.putString("userMail",mail);
         editor.putString("userMobile", phone);
         editor.putString("userImg",img);
+        editor.commit();
+    }
+
+    public void setUserDetails(String name, String mail,String phone){
+        editor.putString("userName", name);
+        editor.putString("userMail",mail);
+        editor.putString("userMobile", phone);
         editor.commit();
     }
 

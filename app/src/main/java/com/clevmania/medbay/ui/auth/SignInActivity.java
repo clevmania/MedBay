@@ -328,23 +328,42 @@ public class SignInActivity extends AppCompatActivity {
     private void updateUserProfile(FirebaseUser userDetails){
         new ProfileManager(this).setUid(userDetails.getUid());
 
-        // Save user profile via sharedPreference
-        new ProfileManager(this).setUserDetails(userDetails.getDisplayName(),
-                userDetails.getEmail(),userDetails.getPhoneNumber(),userDetails.getPhotoUrl().toString());
+        if(userDetails.getPhotoUrl() != null){
+            // Save user profile via sharedPreference
+            new ProfileManager(this).setUserDetails(userDetails.getDisplayName(),
+                    userDetails.getEmail(),userDetails.getPhoneNumber(),userDetails.getPhotoUrl().toString());
 
-        // Save user details to firebase database
-        FirebaseUtils.getProfileReference(userDetails.getUid())
-                .setValue(new ProfileModel(userDetails.getDisplayName(),userDetails.getEmail(),
-                        userDetails.getPhotoUrl().toString(),userDetails.getPhoneNumber()));
+            // Save user details to firebase database
+            FirebaseUtils.getProfileReference(userDetails.getUid())
+                    .setValue(new ProfileModel(userDetails.getDisplayName(),userDetails.getEmail(),
+                            userDetails.getPhotoUrl().toString(),userDetails.getPhoneNumber()));
+        }else{
+            // Save user profile via sharedPreference
+            new ProfileManager(this).setUserDetails(userDetails.getDisplayName(),
+                    userDetails.getEmail(),userDetails.getPhoneNumber());
+
+            // Save user details to firebase database
+            FirebaseUtils.getProfileReference(userDetails.getUid())
+                    .setValue(new ProfileModel(userDetails.getDisplayName(),userDetails.getEmail(),
+                            "null",userDetails.getPhoneNumber()));
+        }
+
     }
 
     private void saveUserInSharedPreference(FirebaseUser userDetails){
         // saved logged user's uid
         new ProfileManager(this).setUid(userDetails.getUid());
 
-        // Save logged user in sharedPreference
-        new ProfileManager(this).setUserDetails(userDetails.getDisplayName(),
-                userDetails.getEmail(),userDetails.getPhoneNumber(),userDetails.getPhotoUrl().toString());
+        if(userDetails.getPhotoUrl() != null){
+            // Save logged user in sharedPreference
+            new ProfileManager(this).setUserDetails(userDetails.getDisplayName(),
+                    userDetails.getEmail(),userDetails.getPhoneNumber(),userDetails.getPhotoUrl().toString());
+        }else{
+            // Save logged user in sharedPreference
+            new ProfileManager(this).setUserDetails(userDetails.getDisplayName(),
+                    userDetails.getEmail(),userDetails.getPhoneNumber());
+        }
+
     }
 
 
