@@ -318,8 +318,7 @@ public class SignInActivity extends AppCompatActivity {
         FirebaseUtils.getAuthenticationReference().signOut();
 
         Intent logOutIntent = new Intent(context, SignInActivity.class);
-        logOutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        logOutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+        logOutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(logOutIntent);
 
     }
