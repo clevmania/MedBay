@@ -309,13 +309,13 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     public void signOutUser(Context context) {
-        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
+        /*Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(@NonNull Status status) {
 
                     }
-                });
+                });*/
 
         FirebaseUtils.getAuthenticationReference().signOut();
 

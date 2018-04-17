@@ -21,13 +21,18 @@ import com.clevmania.medbay.adapter.MedicationAdapter;
 import com.clevmania.medbay.firebase.FirebaseUtils;
 import com.clevmania.medbay.model.MedicationsModel;
 import com.clevmania.medbay.ui.MedicationActivity;
+import com.clevmania.medbay.ui.auth.SignInActivity;
+import com.clevmania.medbay.ui.profile.ProfileManager;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
@@ -41,11 +46,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
-        setUpFAB();
-        setupRecyclerView();
-        retrieveMedications();
+        userAuthenticationState();
     }
 
     private void setUpFAB(){
@@ -65,10 +67,11 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_log_out:
-                        //do stuff
-                        Toast.makeText(MainActivity.this,
-                                "You clicked"+menuItem.getTitle().toString(),
-                                Toast.LENGTH_SHORT).show();
+                        FirebaseUtils.getAuthenticationReference().signOut();
+
+                        Intent logOutIntent = new Intent(MainActivity.this, SignInActivity.class);
+                        logOutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(logOutIntent);
                         break;
                     case R.id.action_view:
                         // do stuff
@@ -96,7 +99,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void retrieveMedications(){
-        FirebaseUtils.getMedicationsReference().addChildEventListener(new ChildEventListener() {
+        FirebaseUtils.getMedicReference(new ProfileManager(MainActivity.this).getUid()
+                ,getMonth()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if(dataSnapshot != null){
@@ -142,6 +146,58 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        /*FirebaseUtils.getMedicationsReference().addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if(dataSnapshot != null){
+                    MedicationsModel mm = dataSnapshot.getValue(MedicationsModel.class);
+                    medicationsModel.add(new MedicationsModel(mm.getTitle(),mm.getDesc(),mm.getInterval(),
+                            mm.getStart_date(),mm.getEnd_date(),mm.getDosage()));
+                    medicationAdapter = new MedicationAdapter(medicationsModel);
+                    medicationList.setAdapter(medicationAdapter);
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                MedicationsModel medication = dataSnapshot.getValue(MedicationsModel.class);
+                if (medication != null) {
+                    int indexOfTopic = medicationsModel.indexOf(medication);
+                    if (indexOfTopic != -1) {
+                        medicationsModel.remove(medication);
+                        medicationAdapter.notifyItemRemoved(indexOfTopic);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                medicationAdapter.notifyDataSetChanged();
+                            }
+                        }, 500);
+                    }
+                }
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
+
+    }
+
+    private String getMonth(){
+        Calendar cal = Calendar.getInstance();
+        return new SimpleDateFormat("MMMM", Locale.getDefault()).format(cal.getTime());
     }
 
     @Override
@@ -197,5 +253,28 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private void userAuthenticationState(){
+        if(FirebaseUtils.getAuthenticationReference().getCurrentUser() != null){
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    setContentView(R.layout.activity_main);
+                    setUpFAB();
+                    setupRecyclerView();
+                    retrieveMedications();
+                }
+            });
+        }else{
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(new Intent(MainActivity.this,SignInActivity.class));
+                    finish();
+                }
+            });
+        }
+
     }
 }
