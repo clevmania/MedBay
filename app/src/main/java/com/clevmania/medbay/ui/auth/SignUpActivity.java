@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.clevmania.medbay.MainActivity;
 import com.clevmania.medbay.R;
@@ -25,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class SignUpActivity extends AppCompatActivity {
     private EditText newUserMail, newUserPassword, newUserName;
     private Button login,createAccount;
+    private ProgressBar authIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void initViews(){
+        authIndicator = findViewById(R.id.pb_indicator);
         newUserMail = findViewById(R.id.et_email);
         newUserPassword = findViewById(R.id.et_password);
         newUserName = findViewById(R.id.et_username);
@@ -59,15 +62,18 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void createUserAccount(){
+        authIndicator.setVisibility(View.VISIBLE);
         FirebaseUtils.getAuthenticationReference().createUserWithEmailAndPassword(newUserMail.getText().toString(),
                 newUserPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    authIndicator.setVisibility(View.GONE);
                     updateUserProfile(FirebaseUtils.getAuthenticationReference().getCurrentUser());
                     startActivity(new Intent(SignUpActivity.this,MainActivity.class));
                     finish();
                 }else{
+                    authIndicator.setVisibility(View.GONE);
                     UiUtils.showLongSnackBar(createAccount, "Account could not be setup");
 
                 }
