@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.clevmania.medbay.ui.profile.UserProfileActivity"
+    tools:showIn="@layout/activity_user_profile">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fafafa"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
+
+            <LinearLayout
+                android:paddingTop="48dp"
+                android:background="@drawable/profile_background"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_gravity="center">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_user"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/img3"
+                        app:civ_border_color="@color/colorWhite"
+                        app:civ_border_width="2dp" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_add_profile_img"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:civ_circle_background_color="@color/colorWhite"
+                        android:layout_gravity="top|end"
+                        android:src="@drawable/ic_add_pix" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="John Snow"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="21sp"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:layout_marginTop="45dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingStart="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:srcCompat="@drawable/ic_mail"/>
+                <TextView
+                    android:id="@+id/tv_user_email"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
+                    android:paddingRight="20dp"
+                    tools:text="johnsnow@gmail.com"
+                    android:textColor="@color/colorPrimary"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:paddingStart="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    app:srcCompat="@drawable/ic_phone"/>
+                <TextView
+                    android:id="@+id/tv_user_mobile"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingStart="20dp"
+                    tools:text="0806-555-1257"
+                    android:textColor="@color/colorPrimary"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:textColor="#fff"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="30dp"
+            android:background="@color/colorPrimaryDark"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Edit Profile"/>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

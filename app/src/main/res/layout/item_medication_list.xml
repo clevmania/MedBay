@@ -161,13 +161,13 @@
 
             <ImageView
                 android:layout_weight="1"
-                android:src="@drawable/ic_edit"
+                app:srcCompat="@drawable/ic_edit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
 
             <ImageView
                 android:layout_weight="1"
-                android:src="@drawable/ic_delete"
+                app:srcCompat="@drawable/ic_delete"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
 

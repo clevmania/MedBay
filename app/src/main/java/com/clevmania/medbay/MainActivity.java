@@ -1,7 +1,12 @@
 package com.clevmania.medbay;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
 import android.support.design.internal.NavigationMenu;
 import android.support.v7.app.AppCompatActivity;
@@ -15,19 +20,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.clevmania.medbay.adapter.MedicationAdapter;
 import com.clevmania.medbay.firebase.FirebaseUtils;
 import com.clevmania.medbay.model.MedicationsModel;
+import com.clevmania.medbay.receiver.AlarmReceiver;
 import com.clevmania.medbay.ui.MedicationActivity;
+import com.clevmania.medbay.ui.auth.SignInActivity;
+import com.clevmania.medbay.ui.profile.ProfileManager;
+import com.clevmania.medbay.ui.profile.UserProfileActivity;
+import com.clevmania.medbay.utils.UiUtils;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 import io.github.yavski.fabspeeddial.SimpleMenuListenerAdapter;
@@ -37,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private MedicationAdapter medicationAdapter;
     private List<MedicationsModel> medicationsModel;
     private SearchView searchView;
+    private TimePickerDialog.OnTimeSetListener timeSetListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,26 +69,26 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMenuItemSelected(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.action_add:
-                        // do stuff
                         startActivity(new Intent(MainActivity.this, MedicationActivity.class));
                         break;
                     case R.id.action_history:
-                        // do stuff
                         Toast.makeText(MainActivity.this,
                                 "You clicked"+menuItem.getTitle().toString(),
                                 Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_log_out:
-                        //do stuff
-                        Toast.makeText(MainActivity.this,
-                                "You clicked"+menuItem.getTitle().toString(),
-                                Toast.LENGTH_SHORT).show();
+                        FirebaseUtils.getAuthenticationReference().signOut();
+                        new ProfileManager(MainActivity.this).wipeUserDetails();
+
+                        Intent logOutIntent = new Intent(MainActivity.this, SignInActivity.class);
+                        logOutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(logOutIntent);
                         break;
                     case R.id.action_view:
-                        // do stuff
-                        Toast.makeText(MainActivity.this,
-                                "You clicked"+menuItem.getTitle().toString(),
-                                Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
+                        break;
+                    case R.id.action_remind:
+                        setReminder();
                         break;
                 }
                 return true;
@@ -96,7 +110,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void retrieveMedications(){
-        FirebaseUtils.getMedicationsReference().addChildEventListener(new ChildEventListener() {
+        FirebaseUtils.getMedicReference(new ProfileManager(MainActivity.this).getUid()
+                ,getMonth()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if(dataSnapshot != null){
@@ -142,6 +157,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private String getMonth(){
+        Calendar cal = Calendar.getInstance();
+        return new SimpleDateFormat("MMMM", Locale.getDefault()).format(cal.getTime());
     }
 
     @Override
@@ -198,4 +218,44 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void setReminder(){
+        Calendar cal = Calendar.getInstance();
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity.this,
+                android.R.style.Theme_Holo_Dialog_MinWidth, timeSetListener,
+                cal.get(Calendar.HOUR_OF_DAY),cal.get(Calendar.MINUTE),true);
+        timePickerDialog.setTitle("Take Medication at");
+        timePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        timePickerDialog.show();
+
+        timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                setAlarm(hour, minute);
+                Toast.makeText(MainActivity.this,String.format("ths time is %s:%s",hour,minute),Toast.LENGTH_LONG).show();
+                UiUtils.showLongSnackBar(findViewById(R.id.action_remind),String.format("ths time is %s:%s",hour,minute));
+            }
+        };
+    }
+
+    private void setAlarm(int hour, int minute){
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY,hour);
+        cal.set(Calendar.MINUTE,minute);
+        cal.set(Calendar.SECOND,0);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent fireAlarm = new Intent(this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,100,fireAlarm,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if(alarmManager != null){
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
+            }else{
+                alarmManager.set(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
+            }
+        }
+    }
+
 }

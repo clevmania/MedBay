@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -68,7 +69,7 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
     }
 
     private String durationOfMedication(String date){
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         Date finishDate , currentDate;
         String noOfDays = "";
 

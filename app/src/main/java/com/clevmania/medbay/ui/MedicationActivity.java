@@ -14,10 +14,14 @@ import android.widget.Toast;
 import com.clevmania.medbay.R;
 import com.clevmania.medbay.firebase.FirebaseUtils;
 import com.clevmania.medbay.model.MedicationsModel;
+import com.clevmania.medbay.ui.profile.ProfileManager;
+import com.clevmania.medbay.utils.UiUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 public class MedicationActivity extends AppCompatActivity {
     private EditText title, desc, interval, dosage, startDate, endDate;
@@ -58,14 +62,17 @@ public class MedicationActivity extends AppCompatActivity {
                 desc.getText().toString(),interval.getText().toString(),
                 startDate.getText().toString(),endDate.getText().toString(),
                 dosage.getText().toString());
-        FirebaseUtils.getMedicationsReference().push().setValue(model)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(MedicationActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                        clear();
-                    }
-                });
+
+        FirebaseUtils.getMedicReference(new ProfileManager(MedicationActivity.this)
+                .getUid(),getMonth()).push().setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                UiUtils.showLongSnackBar(addMedication,
+                        String.format("%s, has been successfully added",title.getText().toString()));
+                clear();
+            }
+        });
+
     }
 
     private void clear(){
@@ -110,7 +117,6 @@ public class MedicationActivity extends AppCompatActivity {
                 DatePickerDialog pickerDialog = new DatePickerDialog(MedicationActivity.this,
                         android.R.style.Theme_Holo_Dialog_MinWidth,startDateListener,
                         cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
-//                Log.i(MedicationActivity.class.getSimpleName(),String.valueOf(System.currentTimeMillis() - 1000));
                 pickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
                 pickerDialog.setTitle("Medication Start DATE");
                 pickerDialog.show();
@@ -124,6 +130,11 @@ public class MedicationActivity extends AppCompatActivity {
                 startDate.setText(String.format("%d/%d/%d",d,++m,yr));
             }
         };
+    }
+
+    private String getMonth(){
+        Calendar cal = Calendar.getInstance();
+        return new SimpleDateFormat("MMMM", Locale.getDefault()).format(cal.getTime());
     }
 
 }

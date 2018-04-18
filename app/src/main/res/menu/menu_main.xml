@@ -4,6 +4,10 @@
         android:id="@+id/action_add"
         android:icon="@drawable/ic_add_medics"
         android:title="@string/medication" />
+
+    <item android:id="@+id/action_remind"
+        android:icon="@drawable/ic_add_reminder"
+        android:title="Remind me"/>
     <item
         android:id="@+id/action_view"
         android:icon="@drawable/ic_profile"
