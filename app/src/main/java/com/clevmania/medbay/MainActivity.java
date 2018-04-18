@@ -1,5 +1,6 @@
 package com.clevmania.medbay;
 
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.clevmania.medbay.adapter.MedicationAdapter;
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private MedicationAdapter medicationAdapter;
     private List<MedicationsModel> medicationsModel;
     private SearchView searchView;
+    private TimePickerDialog.OnTimeSetListener timeSetListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +82,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this,
                                 "You clicked"+menuItem.getTitle().toString(),
                                 Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_remind:
+                        setReminder();
                         break;
                 }
                 return true;
@@ -230,5 +236,30 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    private void setReminder(){
+        Calendar cal = Calendar.getInstance();
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity.this,
+                android.R.style.Theme_Holo_Dialog_MinWidth, timeSetListener,
+                cal.get(Calendar.HOUR),cal.get(Calendar.MINUTE),false);
+        timePickerDialog.setTitle("Take Medication at");
+        timePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        timePickerDialog.show();
+
+        timeSetListener = new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int hour, int minute) {
+                setAlarm(hour, minute);
+            }
+        };
+    }
+
+    private void setAlarm(int hour, int minute){
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY,hour);
+        cal.set(Calendar.MINUTE,minute);
+        cal.set(Calendar.SECOND,0);
     }
 }
