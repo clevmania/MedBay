@@ -30,6 +30,7 @@ import com.clevmania.medbay.receiver.AlarmReceiver;
 import com.clevmania.medbay.ui.MedicationActivity;
 import com.clevmania.medbay.ui.auth.SignInActivity;
 import com.clevmania.medbay.ui.profile.ProfileManager;
+import com.clevmania.medbay.ui.profile.UserProfileActivity;
 import com.clevmania.medbay.utils.UiUtils;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -69,11 +70,9 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMenuItemSelected(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.action_add:
-                        // do stuff
                         startActivity(new Intent(MainActivity.this, MedicationActivity.class));
                         break;
                     case R.id.action_history:
-                        // do stuff
                         Toast.makeText(MainActivity.this,
                                 "You clicked"+menuItem.getTitle().toString(),
                                 Toast.LENGTH_SHORT).show();
@@ -87,10 +86,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(logOutIntent);
                         break;
                     case R.id.action_view:
-                        // do stuff
-                        Toast.makeText(MainActivity.this,
-                                "You clicked"+menuItem.getTitle().toString(),
-                                Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, UserProfileActivity.class));
                         break;
                     case R.id.action_remind:
                         setReminder();
@@ -224,26 +220,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void userAuthenticationState(){
-        if(FirebaseUtils.getAuthenticationReference().getCurrentUser() != null){
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
-
-                }
-            });
-        }else{
-            new Handler().post(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(MainActivity.this,SignInActivity.class));
-                    finish();
-                }
-            });
-        }
-
-    }
-
     private void setReminder(){
         Calendar cal = Calendar.getInstance();
 
@@ -275,9 +251,7 @@ public class MainActivity extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this,100,fireAlarm,PendingIntent.FLAG_UPDATE_CURRENT);
 
         if(alarmManager != null){
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
-            }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
             }else{
                 alarmManager.set(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
