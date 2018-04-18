@@ -23,4 +23,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="splashTheme" parent="AppTheme">
+        <item name="android:text">@string/splash_text</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
 </resources>

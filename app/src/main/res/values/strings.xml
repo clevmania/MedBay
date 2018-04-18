@@ -20,4 +20,7 @@
     <string name="err_msg_password">Password is required</string>
     <string name="err_min_password_length">Password should be 8 characters long</string>
     <string name="title_activity_user_profile">User Profile</string>
+
+    // Text display for splash screen
+    <string name="splash_text">MedBay, Medication Manager</string>
 </resources>

@@ -55,8 +55,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        userAuthenticationState();
+        setUpFAB();
+        setupRecyclerView();
+        retrieveMedications();
     }
 
     private void setUpFAB(){
@@ -226,10 +229,7 @@ public class MainActivity extends AppCompatActivity {
             new Handler().post(new Runnable() {
                 @Override
                 public void run() {
-                    setContentView(R.layout.activity_main);
-                    setUpFAB();
-                    setupRecyclerView();
-                    retrieveMedications();
+
                 }
             });
         }else{
@@ -274,16 +274,15 @@ public class MainActivity extends AppCompatActivity {
         Intent fireAlarm = new Intent(this, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this,100,fireAlarm,PendingIntent.FLAG_UPDATE_CURRENT);
 
-//        if(alarmManager != null){
+        if(alarmManager != null){
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
-//                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
             }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
             }else{
                 alarmManager.set(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
             }
-//        }
+        }
     }
 
 }
