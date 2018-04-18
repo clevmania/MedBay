@@ -7,4 +7,20 @@
     <string name="history">Overview</string>
     <string name="logout">Sign out</string>
     <string name="title_activity_medication">Add Medication</string>
+    <string name="action_search">search</string>
+    <string name="title_activity_sign_in">SignInActivity</string>
+
+    //Login labels
+    <string name="login_header">Keep track of your medication</string>
+    <string name="title_activity_sign_up">SignUpActivity</string>
+
+    // AuthenticationError Messages
+    <string name="err_msg_email">Email is required</string>
+    <string name="err_msg_invalid_email">Invalid email provided</string>
+    <string name="err_msg_password">Password is required</string>
+    <string name="err_min_password_length">Password should be 8 characters long</string>
+    <string name="title_activity_user_profile">User Profile</string>
+
+    // Text display for splash screen
+    <string name="splash_text">MedBay, Medication Manager</string>
 </resources>

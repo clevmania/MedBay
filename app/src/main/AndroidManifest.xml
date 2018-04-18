@@ -3,6 +3,8 @@
     package="com.clevmania.medbay">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SET_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -12,11 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.MedicationActivity"
@@ -27,6 +25,34 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.clevmania.medbay.MainActivity" />
         </activity>
+        <activity
+            android:name=".ui.auth.SignInActivity"
+            android:label="@string/title_activity_sign_in"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.auth.SignUpActivity"
+            android:label="@string/title_activity_sign_up"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.profile.UserProfileActivity"
+            android:label="@string/title_activity_user_profile"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.clevmania.medbay.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:theme="@style/splashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <receiver android:name=".receiver.AlarmReceiver"
+            android:enabled="true"/>
     </application>
 
 </manifest>

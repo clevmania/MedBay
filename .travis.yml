@@ -1,10 +1,10 @@
 language : android
-sudo : false
+sudo : required
 jdk : oraclejdk8
 env:
   global :
-    - ANROID_API_LEVEL = 25
-    - ANDROID_BUILD_TOOLS_VERSION = 26
+    - ANROID_API_LEVEL = 24
+    - ANDROID_BUILD_TOOLS_VERSION = 26.0.1
 android :
   components :
     - tools

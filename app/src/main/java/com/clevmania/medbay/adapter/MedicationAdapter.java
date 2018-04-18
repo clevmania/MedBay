@@ -1,6 +1,7 @@
 package com.clevmania.medbay.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,14 @@ import android.widget.TextView;
 import com.clevmania.medbay.R;
 import com.clevmania.medbay.model.MedicationsModel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by grandilo-lawrence on 4/8/18.
@@ -33,10 +41,11 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
         MedicationsModel medicModel = medicationsModels.get(position);
         holder.medicName.setText(medicModel.getTitle());
         holder.medicDescription.setText(medicModel.getDesc());
-        holder.medicDosage.setText(medicModel.getDosage());
+        holder.medicDosage.setText(String.format("%s daily",medicModel.getDosage()));
         holder.medicInterval.setText(medicModel.getInterval());
         holder.startDate.setText(medicModel.getStart_date());
         holder.endDate.setText(medicModel.getEnd_date());
+        holder.duration.setText(durationOfMedication(medicModel.getEnd_date()));
     }
 
     @Override
@@ -45,7 +54,7 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
     }
 
     public class MedicationViewHolder extends RecyclerView.ViewHolder {
-        TextView medicName, medicDescription, medicDosage, medicInterval, startDate, endDate;
+        TextView medicName, medicDescription, medicDosage, medicInterval, startDate, endDate, duration;
 
         private MedicationViewHolder(View itemView) {
             super(itemView);
@@ -55,7 +64,34 @@ public class MedicationAdapter extends RecyclerView.Adapter<MedicationAdapter.Me
             medicInterval = itemView.findViewById(R.id.et_interval);
             startDate = itemView.findViewById(R.id.et_start_date);
             endDate = itemView.findViewById(R.id.et_end_date);
+            duration = itemView.findViewById(R.id.tv_duration);
         }
     }
 
+    private String durationOfMedication(String date){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        Date finishDate , currentDate;
+        String noOfDays = "";
+
+        try {
+            finishDate=formatter.parse(date);
+            currentDate = formatter.parse(formatter.format(System.currentTimeMillis()));
+            long daysInMills = Math.abs(finishDate.getTime() - currentDate.getTime());
+            long days = TimeUnit.MILLISECONDS.toDays(daysInMills);
+            noOfDays = String.format("%s \n days left",String.valueOf(days));
+
+            if(currentDate.after(finishDate)){
+                noOfDays = "\u2714";
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return noOfDays;
+    }
+
+    public void setFilter(List<MedicationsModel> medList){
+        medicationsModels = new ArrayList<>();
+        medicationsModels.addAll(medList);
+        notifyDataSetChanged();
+    }
 }
