@@ -117,7 +117,6 @@ public class MedicationActivity extends AppCompatActivity {
                 DatePickerDialog pickerDialog = new DatePickerDialog(MedicationActivity.this,
                         android.R.style.Theme_Holo_Dialog_MinWidth,startDateListener,
                         cal.get(Calendar.YEAR),cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH));
-//                Log.i(MedicationActivity.class.getSimpleName(),String.valueOf(System.currentTimeMillis() - 1000));
                 pickerDialog.getDatePicker().setMinDate(System.currentTimeMillis()-1000);
                 pickerDialog.setTitle("Medication Start DATE");
                 pickerDialog.show();

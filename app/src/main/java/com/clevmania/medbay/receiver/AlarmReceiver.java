@@ -11,6 +11,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 
 import com.clevmania.medbay.MainActivity;
+import com.clevmania.medbay.R;
 
 /**
  * Created by grandilo-lawrence on 4/18/18.
