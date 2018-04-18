@@ -13,10 +13,6 @@ public class FirebaseUtils {
         return FirebaseDatabase.getInstance().getReference();
     }
 
-    public static DatabaseReference getMedicationsReference(){
-        return getRootReference().child("/medication");
-    }
-
     public static FirebaseAuth getAuthenticationReference() {
         return FirebaseAuth.getInstance();
     }
