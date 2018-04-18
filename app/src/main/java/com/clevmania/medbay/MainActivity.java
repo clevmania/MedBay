@@ -1,8 +1,12 @@
 package com.clevmania.medbay;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Handler;
 import android.support.design.internal.NavigationMenu;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +26,7 @@ import android.widget.Toast;
 import com.clevmania.medbay.adapter.MedicationAdapter;
 import com.clevmania.medbay.firebase.FirebaseUtils;
 import com.clevmania.medbay.model.MedicationsModel;
+import com.clevmania.medbay.receiver.AlarmReceiver;
 import com.clevmania.medbay.ui.MedicationActivity;
 import com.clevmania.medbay.ui.auth.SignInActivity;
 import com.clevmania.medbay.ui.profile.ProfileManager;
@@ -261,5 +266,19 @@ public class MainActivity extends AppCompatActivity {
         cal.set(Calendar.HOUR_OF_DAY,hour);
         cal.set(Calendar.MINUTE,minute);
         cal.set(Calendar.SECOND,0);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent fireAlarm = new Intent(this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,100,fireAlarm,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        if(alarmManager != null){
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
+            }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
+            }else{
+                alarmManager.set(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
+            }
+        }
     }
 }
