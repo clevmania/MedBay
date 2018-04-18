@@ -30,6 +30,7 @@ import com.clevmania.medbay.receiver.AlarmReceiver;
 import com.clevmania.medbay.ui.MedicationActivity;
 import com.clevmania.medbay.ui.auth.SignInActivity;
 import com.clevmania.medbay.ui.profile.ProfileManager;
+import com.clevmania.medbay.utils.UiUtils;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -248,7 +249,7 @@ public class MainActivity extends AppCompatActivity {
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(MainActivity.this,
                 android.R.style.Theme_Holo_Dialog_MinWidth, timeSetListener,
-                cal.get(Calendar.HOUR),cal.get(Calendar.MINUTE),false);
+                cal.get(Calendar.HOUR_OF_DAY),cal.get(Calendar.MINUTE),true);
         timePickerDialog.setTitle("Take Medication at");
         timePickerDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         timePickerDialog.show();
@@ -257,6 +258,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                 setAlarm(hour, minute);
+                Toast.makeText(MainActivity.this,String.format("ths time is %s:%s",hour,minute),Toast.LENGTH_LONG).show();
+                UiUtils.showLongSnackBar(findViewById(R.id.action_remind),String.format("ths time is %s:%s",hour,minute));
             }
         };
     }
@@ -271,14 +274,16 @@ public class MainActivity extends AppCompatActivity {
         Intent fireAlarm = new Intent(this, AlarmReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this,100,fireAlarm,PendingIntent.FLAG_UPDATE_CURRENT);
 
-        if(alarmManager != null){
+//        if(alarmManager != null){
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
+//                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
             }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
             }else{
                 alarmManager.set(AlarmManager.RTC_WAKEUP,cal.getTimeInMillis(),pendingIntent);
             }
-        }
+//        }
     }
+
 }

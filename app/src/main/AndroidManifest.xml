@@ -3,6 +3,8 @@
     package="com.clevmania.medbay">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SET_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -44,7 +46,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.clevmania.medbay.MainActivity" />
         </activity>
-        <receiver android:name=".receiver.AlarmReceiver"/>
+        <receiver android:name=".receiver.AlarmReceiver"
+            android:enabled="true"/>
     </application>
 
 </manifest>
