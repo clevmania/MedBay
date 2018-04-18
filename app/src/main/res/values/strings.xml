@@ -19,4 +19,5 @@
     <string name="err_msg_invalid_email">Invalid email provided</string>
     <string name="err_msg_password">Password is required</string>
     <string name="err_min_password_length">Password should be 8 characters long</string>
+    <string name="title_activity_user_profile">User Profile</string>
 </resources>
